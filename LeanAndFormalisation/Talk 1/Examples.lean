@@ -40,27 +40,25 @@ example (P Q R S : Prop) (hPQ : P → Q) (hQR : Q → R) (hRS : R → S) : P →
 
 
 -- Example 5
-example (n : ℕ) (hypo₁ : n ≥ 51 → n > 50) (hypo₂ : n ≥ 53 → n ≥ 51)
-    (h : n > 47 ∧ Nat.Prime n → n ≥ 53) (h₁ : n > 47)
-    (h₂ : Nat.Prime n) : n > 50 :=
-  hypo₁ (hypo₂ (h ⟨h₁, h₂⟩))
+example (n : ℕ) (hypo : n ≥ 53 → n > 50) (h : n > 47 ∧ Nat.Prime n → n ≥ 53)
+    (h₁ : n > 47) (h₂ : Nat.Prime n) : n > 50 :=
+  hypo (h ⟨h₁, h₂⟩)
 
 -- Interesting example
 example {G : Type} [Group G] : (1 : G)⁻¹ = 1 :=
-  have this := fun {a b} h =>
+  have this := fun {a b} h ↦
     have this' :=
-      Eq.mpr (id (congrArg (fun _a => a⁻¹ * a * b = a⁻¹ * _a) (Eq.symm h)))
-        (Eq.mpr (id (congrArg (fun _a => _a = a⁻¹ * (a * b)) (mul_assoc a⁻¹ a b))) (Eq.refl (a⁻¹ *
+      Eq.mpr (id (congrArg (fun _a ↦ a⁻¹ * a * b = a⁻¹ * _a) (Eq.symm h)))
+        (Eq.mpr (id (congrArg (fun _a ↦ _a = a⁻¹ * (a * b)) (mul_assoc a⁻¹ a b))) (Eq.refl (a⁻¹ *
         (a * b))));
     Eq.mpr
       (id
-        (congrArg (fun _a => a⁻¹ = _a)
-          (Eq.mp (congrArg (fun _a => b = _a) (mul_one a⁻¹))
-            (Eq.mp (congrArg (fun _a => _a = a⁻¹ * 1) (one_mul b))
-              (Eq.mp (congrArg (fun _a => _a * b = a⁻¹ * (1 : G)) (inv_mul_cancel a)) this')))))
+        (congrArg (fun _a ↦ a⁻¹ = _a)
+          (Eq.mp (congrArg (fun _a ↦ b = _a) (mul_one a⁻¹))
+            (Eq.mp (congrArg (fun _a ↦ _a = a⁻¹ * 1) (one_mul b))
+              (Eq.mp (congrArg (fun _a ↦ _a * b = a⁻¹ * (1 : G)) (inv_mul_cancel a)) this')))))
       (Eq.refl a⁻¹);
-  this (Eq.mpr (id (congrArg (fun _a => _a = 1) (one_mul 1))) (Eq.refl 1))
-
+  this (Eq.mpr (id (congrArg (fun _a ↦ _a = 1) (one_mul 1))) (Eq.refl 1))
 
 -- Example 2 using tactics
 example (P Q : Prop) (hPQ : P → Q) (hP : P) : Q := by
