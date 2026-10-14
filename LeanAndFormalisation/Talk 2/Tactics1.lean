@@ -1,6 +1,6 @@
 module
 
-public import Mathlib.Data.Real.Basic
+public import Mathlib.Basic.Real.Basic
 
 /-!
 ## Tactics
@@ -29,7 +29,7 @@ tactic mode. This is done by adding the keyword `by` in between `:=` and `sorry`
 -/
 
 -- Lean is expecting you to give a proof term
-example : ∀ n : ℕ, 0 ≤ n := by
+example : ∀ n : ℕ, 0 ≤ n :=
   sorry
 
 -- Lean is expecting you to prove this using tactics
