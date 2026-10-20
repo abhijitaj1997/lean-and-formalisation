@@ -1,6 +1,8 @@
 module
 
-public import Mathlib
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Tactic.Linarith.Frontend
+public import Mathlib.Tactic.NormNum.Ineq
 
 /-!
 ## Solutions to Tactics 4
@@ -22,7 +24,7 @@ example : (6 : ℚ) * 2 = 12 := by
   linarith
 
 -- `norm_num` also works
-example : ¬ (1 + 2 > 5) := by
+example : ¬ ((1 : ℝ) + 2 > 5) := by
   linarith
 
 -- `norm_num` also works
@@ -33,6 +35,9 @@ def ten := 10
 example : 2 * 5 = ten := by
   norm_num
   rfl
+
+example (n : ℕ) : n + n = 2 * n := by
+  linarith
 
 -- `norm_num` also works
 example (n : ℕ) : 0 ≤ n := by

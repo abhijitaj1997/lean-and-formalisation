@@ -24,11 +24,11 @@ lemma mul_left_cancel' {G : Type} [Group G] (a b c : G) : a * b = a * c → b = 
   rw [← mul_assoc, ← mul_assoc, inv_mul_cancel, one_mul, one_mul] at h
   exact h
 
-lemma inv_eq_of_mul_eq_one_left' {G : Type} [Group G] {a b : G} : a * b = 1 → a⁻¹ = b := by
+lemma inv_eq_of_mul_eq_one_right' {G : Type} [Group G] {a b : G} : a * b = 1 → a⁻¹ = b := by
   intro h
   apply mul_left_cancel' a
   rw [mul_inv_cancel, h]
 
 theorem one_inv (G : Type) [Group G] : (1 : G)⁻¹ = 1 := by
-  apply inv_eq_of_mul_eq_one_left'
+  apply inv_eq_of_mul_eq_one_right'
   rw [one_mul]

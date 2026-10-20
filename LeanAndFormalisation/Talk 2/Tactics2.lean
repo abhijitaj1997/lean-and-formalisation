@@ -30,12 +30,14 @@ example (P : Prop) (a b c d : ℕ) (hP : P) (h : P → a + b ≤ 0) (hac : a = c
 
 /-
 Sometimes it is important to specify which term you are applying your proof to
-rather than let Lean guess it. Try to see if you can solve the next example.
+rather than let Lean guess it.
 
-Suppose we have a goal `A + B = C + D`. Then, `rw [Nat.add_comm]` find the very
+Suppose we have a goal `A + B = C + D`. Then, `rw [Nat.add_comm]` finds the very
 first, and outermost `+`, which is `A + B` here, and rewrites that to `B + A`
-*everywhere* in the equation. But, if we want to rewrite anther `+` using commutativity,
+*everywhere* in the equation. But, if we want to rewrite another `+` using commutativity,
 like `C + D` here, then we need to use `rw [Nat.add_comm C D]`.
+
+Try to use this in the next two examples.
 -/
 
 example (a b c d : ℕ) : (a + b) + (c + d) = (d + c) + (a + b) := by
@@ -53,9 +55,10 @@ important that we give these terms a name.
 def next : (ℕ → ℕ) := fun n ↦ (n + 1)
 
 lemma add_next (a b : ℕ) : a + next b = next (a + b) := by
+  -- `simp only [next]` unfolds the definition of `next`
   simp only [next]
   sorry
 
--- solve this by only changing the `LHS`.
+-- Solve this by only changing the LHS.
 example (a b c d : ℕ) : a + (b + (c + next d)) = next (a + b + c + d) := by
   sorry

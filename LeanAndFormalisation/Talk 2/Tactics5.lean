@@ -7,7 +7,7 @@ public import Mathlib.Tactic.ApplyAt
 ## Groups in Lean
 
 In this sheet we will see some basic results about (multiplicative) groups.
-The main goal is to show that the `1⁻¹ = 1`, where `1 : G` is the identity
+The main goal is to show that `1⁻¹ = 1`, where `1 : G` is the identity
 element.
 
 -/
@@ -39,10 +39,10 @@ lemma mul_left_cancel' {G : Type} [Group G] (a b c : G) : a * b = a * c → b = 
 
 #check mul_left_cancel
 
-lemma inv_eq_of_mul_eq_one_left' {G : Type} [Group G] {a b : G} : a * b = 1 → a⁻¹ = b := by
+lemma inv_eq_of_mul_eq_one_right' {G : Type} [Group G] {a b : G} : a * b = 1 → a⁻¹ = b := by
   sorry
 
-#check inv_eq_of_mul_eq_one_left
+#check inv_eq_of_mul_eq_one_right
 
 theorem one_inv (G : Type) [Group G] : (1 : G)⁻¹ = 1 := by
   sorry

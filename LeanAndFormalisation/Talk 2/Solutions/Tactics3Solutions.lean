@@ -1,6 +1,6 @@
 module
 
-public import Mathlib.Algebra.Group.Nat.Defs
+public import Mathlib.Tactic.Lemma
 
 /-!
 ## Solutions to Tactics 3
@@ -13,7 +13,7 @@ public section
 ## The `constructor` tactic
 -/
 
-lemma and_comm' {P Q : Prop} : P ∧ Q → Q ∧ P := by
+lemma and_comm' {R S : Prop} : R ∧ S → S ∧ R := by
   intro h
   constructor
   · exact h.2

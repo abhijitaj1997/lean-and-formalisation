@@ -15,7 +15,7 @@ public section
 ## The `constructor` tactic
 
 To prove an `And` statement, you can use the `constructor` tactic, which breaks the
-one goal that you have into two goals. It is good practice to indent your new goals
+one goal that you have into two goals. It is good practice to separate your new goals
 using the character `·` (which you can get by typing `\.`). Have a look at the first
 example and try the others yourself.
 -/
@@ -27,10 +27,11 @@ example (P Q : Prop) (hP : P) (hQ : Q) : P ∧ Q := by
 
 /-
 Note that if `P Q : Prop` and `h : P ∧ Q`, then `h.1 : P` and `h.2 : Q`.
-Also, note that `↔` is also an `And` statement.
+Also, note that `P ↔ Q` behaves like an `And` statement, hence we can use
+`constructor`.
 -/
 
--- you get `·` by typing `\.` or `\dot`.
+-- You get `·` by typing `\.` or `\dot`.
 lemma and_comm' {R S : Prop} : R ∧ S → S ∧ R := by
   sorry
 
@@ -81,6 +82,7 @@ example (P Q R S T : Prop) (hR : R) : P ∨ ((Q ∨ (R ∨ S)) ∨ T) := by
 
 lemma or_comm' {R S : Prop} : R ∨ S → S ∨ R := by
   intro h
+  -- `rcases` splits the hypothesis `h` into two cases
   rcases h with (hl | hr)
   · sorry
   · sorry

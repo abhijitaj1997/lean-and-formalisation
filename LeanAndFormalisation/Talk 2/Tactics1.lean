@@ -16,7 +16,7 @@ public section
 ## Switching to tactic mode
 
 Before we move forward, I should introduce the keyword `sorry`. This keyword can be
-used wherever Lean expects a term — for instance, in a `def`, `theorem`, `lemma` or
+used wherever Lean expects a term - for instance, in a `def`, `theorem`, `lemma` or
 `example`. After the `:=`, Lean is waiting for you to give it the term. But, if you are
 unable to give the term, and just leave it blank, Lean will give you an error. So,
 `sorry` is basically us telling Lean, 'sorry, I know that I have not given you the term,
@@ -111,16 +111,16 @@ example : five₀ = five₁ := by
 /-
 ## The `exact` tactic
 
-As you can see, `rfl` only works if the exact same thing is written on both sides.
-This means that it does not work for some very basic equalities (as seen above). But,
-you should be able to fix that by the end of this lecture.
+As you can see, `rfl` only works if both sides are the same up to unfolding
+definitions. This means that it does not work for some very basic equalities (as
+seen above). But, you should be able to fix that by the end of this lecture.
 
 In the same way that `by` tells Lean that you are going from term mode to tactic mode,
 the keyword `exact` tells Lean that you are going from tactic mode to term mode. Why
 would you want to do that? Suppose, after multiple steps in a proof, you realise that
 one of your hypotheses is exactly the goal. Since you have a term of this type, why
-would you sit and prove it again? You can just tell Lean, "here look, I already have a
-term of this type". But, as long as you are in tactic mode, just writing the term down
+would you sit and prove it again? You can just tell Lean, 'here look, I already have a
+term of this type'. But, as long as you are in tactic mode, just writing the term down
 will give you an error. So, you switch back to term mode using `exact`, and then give
 the term.
 
@@ -136,10 +136,10 @@ example (P Q R : Prop) (a_name : P) (a_new_name : Q) (another_new_name : R) : P 
 example (P Q : Prop) (hP : P) (hPQ : P → Q) : Q := by
   sorry
 
+-- Recall from last week that if `hₛ : S` and `hₜ : T`, then `⟨hₛ, hₜ⟩ : S ∧ T`.
+-- You get `⟨ ⟩` by typing `\< \>` or `\langle \rangle`.
 example (P Q : Prop) (hP : P) (hQ : Q) : P ∧ Q := by
-  constructor
-  · sorry
-  · sorry
+  sorry
 
 
 
@@ -163,7 +163,7 @@ Since both `rfl` and `exact` are supposed to finish the proof in a single line, 
 are not many interesting exercises I can create with them. So, let's learn a new
 tactic.
 
-The tactic `apply` tells Lean to apply an implication to the goal and backtrack. Let
+The tactic `apply` tells Lean to apply an implication to the goal and work backwards. Let
 us try and understand that better. Consider example two from the slides. We want to
 prove `Q`, assuming `P` and `P → Q` are true. We can tell Lean to apply the hypothesis
 `hPQ`. Lean would then look at the target of the hypothesis, realise that it is `Q`,
@@ -186,10 +186,10 @@ example (P : Prop) (h : six = 6 → P) : P := by
 
 /-
 Using the keyword `at`, we can also `apply` an implication to an existing proof
-term. For instance, in the above example, if we have proof terms `hPQ : P → Q` and
+term. For instance, in the first example above, if we have proof terms `hPQ : P → Q` and
 `hP : P`, then we can use `apply hPQ at hP` to change `hP` into a term of type `Q`.
-You can have a look at that example below, and also try and solve the second example
-above using the `at` keyword.
+You can have a look at that example below, and also try and solve the next two
+examples using the `at` keyword.
 -/
 
 
@@ -225,7 +225,7 @@ Suppose we have a proof term `h` whose type resembles something of the form `a =
 Then, if there are any `a`s in the goal, `rw [h]` will replace them with `b`s.
 
 Additionally, if the goal is `x = x` after a `rw`, then the `rw` tactic will
-immediately solve it
+immediately solve it.
 -/
 
 example (a b c : ℕ) (h₁ : a = b) (h₂ : b = c) : a ^ 2 = c ^ 2 := by
@@ -237,7 +237,7 @@ example (a b c : ℕ) (h₁ : a = b) (h₂ : b = c) : a ^ 2 = c ^ 2 := by
 solved in a single line using `rw [h₁, h₂]`. You can try it below.
 -/
 
--- you get `h₁` by typing `h\1` or `h\_1`, and similarly for `h₂`.
+-- You get `h₁` by typing `h\1` or `h\_1`, and similarly for `h₂`.
 example (a b c d : ℕ) (h₁ : a = b) (h₂ : b = c) (h₃ : c = d) : a ^ 2 = d ^ 2 := by
   sorry
 
@@ -263,7 +263,7 @@ example (P Q R S : Prop) (hPQ : P ↔ Q) (hRQ : R ↔ Q) (hSR : S ↔ R) : P ↔
 /-
 We can also use the keyword `at` to rewrite existing proof terms. Just as with `apply`,
 we need to write `rw [...] at h` if we would like to rewrite the proof term `h`.
-Try the last example once more, but this time using the `at` keyword.
+Try the last two examples once more, but this time using the `at` keyword.
 -/
 
 example (a b c : ℕ) (hca : c = a) (hcb : c = b) : a = b := by
@@ -312,7 +312,7 @@ example (P Q : Prop) (hQ : Q) : P → Q := by
   sorry
 
 /-
-You can introduce multiple terms using a single intro command. The newly introduced
+You can introduce multiple terms using a single `intro` command. The newly introduced
 terms should be separated by a space. Try the examples below.
 -/
 

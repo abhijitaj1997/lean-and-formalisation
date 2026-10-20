@@ -1,12 +1,14 @@
 module
 
-public import Mathlib
+public import Mathlib.Basic.Real.Basic
+public import Mathlib.Tactic.Linarith.Frontend
+public import Mathlib.Tactic.NormNum.Ineq
 
 /-!
 ## Standard number systems
 
 In this sheet we shall try and solve some basic arithmetic regarding the
-real numbers.
+standard number systems.
 
 -/
 
@@ -15,10 +17,10 @@ public section
 /-
 ## The tactics `linarith` and `norm_num`
 
-The tactic `linarith` can be used to solve linear equations about certain
-semirings like `ℕ`, `ℤ` and `ℚ`. The second tactic, `norm_num` is lean's
-calculator tactic. It can also solve linear equations in a manner similar
-to linarith
+The tactic `linarith` can be used to solve linear equations and inequalities
+in number systems like `ℕ`, `ℤ`, `ℚ` and `ℝ`. The second tactic, `norm_num`, is
+Lean's calculator tactic. It can also solve some linear equations and
+inequalities in a manner similar to `linarith`.
 -/
 
 example : 1 + 1 = 2 := by
@@ -33,7 +35,7 @@ example : 1 + 5 < 7 := by
 example : (6 : ℚ) * 2 = 12 := by
   sorry
 
-example : ¬ (1 + 2 > 5) := by
+example : ¬ ((1 : ℝ) + 2 > 5) := by
   sorry
 
 example : (6 : ℤ) * 2 + 1 ≠ 18 := by
@@ -43,11 +45,14 @@ def ten := 10
 example : 2 * 5 = ten := by
   sorry
 
+example (n : ℕ) : n + n = 2 * n := by
+  sorry
+
 example (n : ℕ) : 0 ≤ n := by
   sorry
 
 /-
-`linarith` also has the ability to solve the goal using the assumptions
+`linarith` also has the ability to solve the goal using the assumptions.
 -/
 
 example (n : ℕ) (hn : n ≤ 5) : n < 10 := by
@@ -77,7 +82,7 @@ example : ∃ n : ℕ, n * 2 = eight := by
   sorry
 
 /-
-If you want to `use a` followed by `use b`, you can do that in a simple line
+If you want to `use a` followed by `use b`, you can do that in a single line
 by typing `use a, b` - similar to `rw`.
 -/
 

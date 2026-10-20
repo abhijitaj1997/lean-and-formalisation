@@ -17,7 +17,7 @@ example (a b c d : ℕ) : a + b + c + d = a + (b + (c + d)) := by
   rw [Nat.add_assoc, Nat.add_assoc]
 
 example (a b c d : ℕ) : a + b + c + d = (b + (c + d)) + a := by
-  rw [add_assoc, add_assoc, add_comm]
+  rw [Nat.add_assoc, Nat.add_assoc, Nat.add_comm]
 
 example (P : Prop) (a b c d : ℕ) (hP : P) (h : P → a + b ≤ 0) (hac : a = c) (hdb : d = b) :
     d + c ≤ 0 := by

@@ -10,7 +10,7 @@ public import Mathlib.Basic.Real.Basic
 public section
 
 /-
-## the `rfl` tactic
+## The `rfl` tactic
 -/
 
 example (a : ℕ) : a = a := by
@@ -38,7 +38,7 @@ example : five₀ = five₁ := by
   rfl
 
 /-
-## the `exact` tactic
+## The `exact` tactic
 -/
 
 example (P Q R : Prop) (a_name : P) (a_new_name : Q) (another_new_name : R) : P := by
@@ -48,12 +48,10 @@ example (P Q : Prop) (hP : P) (hPQ : P → Q) : Q := by
   exact hPQ hP
 
 example (P Q : Prop) (hP : P) (hQ : Q) : P ∧ Q := by
-  constructor
-  · exact hP
-  · exact hQ
+  exact ⟨hP, hQ⟩
 
 /-
-## the `apply` tactic
+## The `apply` tactic
 -/
 
 example (P Q R S : Prop) (hPQ : P → Q) (hQR : Q → R) (hRS : R → S) (hP : P) : S := by
@@ -84,7 +82,7 @@ example (P Q R S : Prop) (hPQ : P → Q) (hQR : Q → R) (hRS : R → S) (hP : P
   exact hP
 
 /-
-## the `rw` tactic
+## The `rw` tactic
 -/
 
 example (a b c d : ℕ) (h₁ : a = b) (h₂ : b = c) (h₃ : c = d) : a ^ 2 = d ^ 2 := by
@@ -113,7 +111,7 @@ example (P Q R S : Prop) (hPQ : P ↔ Q) (hRQ : R ↔ Q) (hSR : S ↔ R) : P ↔
   rw [hSR]
 
 /-
-## the `intro` tactic
+## The `intro` tactic
 -/
 
 example (P : Prop) : P → P := by
@@ -134,10 +132,10 @@ example (P Q : Prop) : P → ((P → Q) → Q) := by
   exact hP
 
 example (P Q R S : Prop) : (P → Q) → (R ↔ P) → (Q → S) → (R → S) := by
-  intro hPQ hPR hQS hR
+  intro hPQ hRP hQS hR
   apply hQS
   apply hPQ
-  rw [← hPR]
+  rw [← hRP]
   exact hR
 
 example (P Q : Prop) : (((P → Q) → Q) → Q) → P → Q := by
