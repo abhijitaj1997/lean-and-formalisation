@@ -45,6 +45,12 @@ example : ∀ n : ℕ, 0 ≤ n := by
 
 
 
+
+
+
+
+
+
 /-
 ## The `rfl` tactic
 
@@ -85,18 +91,24 @@ example : five₀ = 5 := by
 example : five₀ = five₁ := by
   sorry
 
+-- Note: `rfl` does not always require tactic mode. But, we shall not discuss that here.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /-
-Note: `rfl` does not always require tactic mode. But, we shall not discuss that here.
-
-
-
-
-
-
-
-
-
-
 ## The `exact` tactic
 
 As you can see, `rfl` only works if the exact same thing is written on both sides.
@@ -115,8 +127,11 @@ the term.
 Have a look at the example below.
 -/
 
-example (P : Prop) (h : P) : P := by
-  exact h
+example (P : Prop) (hP : P) : P := by
+  exact hP
+
+example (P Q R : Prop) (a_name : P) (a_new_name : Q) (another_new_name : R) : P := by
+  sorry
 
 example (P Q : Prop) (hP : P) (hPQ : P → Q) : Q := by
   sorry
@@ -125,6 +140,12 @@ example (P Q : Prop) (hP : P) (hQ : Q) : P ∧ Q := by
   constructor
   · sorry
   · sorry
+
+
+
+
+
+
 
 
 
@@ -156,6 +177,13 @@ example (P Q : Prop) (hP : P) (hPQ : P → Q) : Q := by
 example (P Q R S : Prop) (hPQ : P → Q) (hQR : Q → R) (hRS : R → S) (hP : P) : S := by
   sorry
 
+example (P : Prop) (hP : P) (h_danger : P → 1 < 0) : 1 < 0 := by
+  sorry
+
+def six := 6
+example (P : Prop) (h : six = 6 → P) : P := by
+  sorry
+
 /-
 Using the keyword `at`, we can also `apply` an implication to an existing proof
 term. For instance, in the above example, if we have proof terms `hPQ : P → Q` and
@@ -169,8 +197,17 @@ example (P Q : Prop) (hP : P) (hPQ : P → Q) : Q := by
   apply hPQ at hP
   exact hP
 
+example (P : Prop) (hP : P) (h_danger : P → 1 < 0) : 1 < 0 := by
+  sorry
+
 example (P Q R S : Prop) (hPQ : P → Q) (hQR : Q → R) (hRS : R → S) (hP : P) : S := by
   sorry
+
+
+
+
+
+
 
 
 
@@ -187,7 +224,8 @@ example (P Q R S : Prop) (hPQ : P → Q) (hQR : Q → R) (hRS : R → S) (hP : P
 Suppose we have a proof term `h` whose type resembles something of the form `a = b`.
 Then, if there are any `a`s in the goal, `rw [h]` will replace them with `b`s.
 
-Additionally, if `rfl` will finish the proof, Lean will automatically apply it.
+Additionally, if the goal is `x = x` after a `rw`, then the `rw` tactic will
+immediately solve it
 -/
 
 example (a b c : ℕ) (h₁ : a = b) (h₂ : b = c) : a ^ 2 = c ^ 2 := by
@@ -199,7 +237,12 @@ example (a b c : ℕ) (h₁ : a = b) (h₂ : b = c) : a ^ 2 = c ^ 2 := by
 solved in a single line using `rw [h₁, h₂]`. You can try it below.
 -/
 
-example (a b c : ℕ) (h₁ : a = b) (h₂ : b = c) : a ^ 2 = c ^ 2 := by
+-- you get `h₁` by typing `h\1` or `h\_1`, and similarly for `h₂`.
+example (a b c d : ℕ) (h₁ : a = b) (h₂ : b = c) (h₃ : c = d) : a ^ 2 = d ^ 2 := by
+  sorry
+
+def one := 2
+example (two : ℕ) (P : Prop) (ht : two = 2) (h : one = two → P) : P := by
   sorry
 
 /-
@@ -207,11 +250,14 @@ Consider the scenario where you have a proof term `h : c = b`, but you would lik
 to rewrite all the `b`s in your goal to `c`s. Unfortunately, `rw [h]` will not help
 you achieve that. This is because `rw` replaces everything on the left of the
 equality with everything on the right (and the same for `↔` statements). So, if you
-would like to flip this around, you have to use the special character `←` (this is
-achieved by typing `\l`). Try the following example.
+would like to flip this around, you have to use the special character `←`. You then
+have to write `rw [← h]`.
 -/
 
 example (a b c : ℕ) (hca : c = a) (hcb : c = b) : a = b := by
+  sorry
+
+example (P Q R S : Prop) (hPQ : P ↔ Q) (hRQ : R ↔ Q) (hSR : S ↔ R) : P ↔ S := by
   sorry
 
 /-
@@ -222,6 +268,16 @@ Try the last example once more, but this time using the `at` keyword.
 
 example (a b c : ℕ) (hca : c = a) (hcb : c = b) : a = b := by
   sorry
+
+-- `rw [...] at hSR` as far as possible.
+example (P Q R S : Prop) (hPQ : P ↔ Q) (hRQ : R ↔ Q) (hSR : S ↔ R) : P ↔ S := by
+  sorry
+
+
+
+
+
+
 
 
 
@@ -249,12 +305,27 @@ example (P Q R : Prop) (hPQ : P → Q) (hQR : Q → R) : P → R := by
   apply hPQ
   exact hP
 
+example (P : Prop) : P → P := by
+  sorry
+
+example (P Q : Prop) (hQ : Q) : P → Q := by
+  sorry
+
 /-
 You can introduce multiple terms using a single intro command. The newly introduced
-terms should be separated by a space. Try the example below.
+terms should be separated by a space. Try the examples below.
 -/
 
+example (P Q R : Prop) : P → (P → Q) → R → P := by
+  sorry
+
 example (P Q : Prop) : P → ((P → Q) → Q) := by
+  sorry
+
+example (P Q R S : Prop) : (P → Q) → (R ↔ P) → (Q → S) → (R → S) := by
+  sorry
+
+example (P Q : Prop) : (((P → Q) → Q) → Q) → P → Q := by
   sorry
 
 example : ∀ n m : ℕ, m = n → n + m = n + n := by
