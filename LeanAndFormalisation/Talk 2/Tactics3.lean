@@ -58,7 +58,6 @@ example (P Q R S : Prop) (h : S ∧ P ∧ Q ∧ R) : R ∧ Q ∧ P ∧ S := by
 
 
 
-
 /-
 ## The `left` and `right` tactics
 

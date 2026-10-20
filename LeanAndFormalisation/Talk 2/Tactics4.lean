@@ -64,6 +64,20 @@ example (m n : ℕ) (hm : m < 3) (hn : n < 2) : m + n < 5 := by
 example : ∀ m n : ℕ, m = 3 → n > 5 → 5 * m + n > 20 := by
   sorry
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /-
 ## The `use` tactic
 

@@ -50,7 +50,6 @@ example : ∀ n : ℕ, 0 ≤ n := by
 
 
 
-
 /-
 ## The `rfl` tactic
 
@@ -92,7 +91,6 @@ example : five₀ = five₁ := by
   sorry
 
 -- Note: `rfl` does not always require tactic mode. But, we shall not discuss that here.
-
 
 
 
@@ -155,7 +153,6 @@ example (P Q : Prop) (hP : P) (hQ : Q) : P ∧ Q := by
 
 
 
-
 /-
 ## The `apply` tactic
 
@@ -192,7 +189,6 @@ You can have a look at that example below, and also try and solve the next two
 examples using the `at` keyword.
 -/
 
-
 example (P Q : Prop) (hP : P) (hPQ : P → Q) : Q := by
   apply hPQ at hP
   exact hP
@@ -202,7 +198,6 @@ example (P : Prop) (hP : P) (h_danger : P → 1 < 0) : 1 < 0 := by
 
 example (P Q R S : Prop) (hPQ : P → Q) (hQR : Q → R) (hRS : R → S) (hP : P) : S := by
   sorry
-
 
 
 
@@ -272,7 +267,6 @@ example (a b c : ℕ) (hca : c = a) (hcb : c = b) : a = b := by
 -- `rw [...] at hSR` as far as possible.
 example (P Q R S : Prop) (hPQ : P ↔ Q) (hRQ : R ↔ Q) (hSR : S ↔ R) : P ↔ S := by
   sorry
-
 
 
 
